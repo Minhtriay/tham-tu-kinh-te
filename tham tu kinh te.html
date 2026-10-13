@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hồ Sơ 70 Triệu — Thám Tử Kinh Tế</title>
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#111923;
+      --panel2:#18222f;
+      --paper:#e8dfc7;
+      --paper2:#d8cba8;
+      --ink:#24201a;
+      --gold:#d8a84e;
+      --red:#b74747;
+      --green:#4caf79;
+      --blue:#5aa4d6;
+      --muted:#9ca8b6;
+      --white:#f5f7fa;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 20% 10%, #172231 0, transparent 30%),
+        radial-gradient(circle at 80% 80%, #151d29 0, transparent 35%),
+        var(--bg);
+      color:var(--white);
+      min-height:100vh;
+    }
+
+    button, textarea{font:inherit}
+
+    button{
+      cursor:pointer;
+      border:none;
+    }
+
+    .hidden{display:none !important}
+
+    .app{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+    }
+
+    /* HEADER */
+    .topbar{
+      height:68px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 28px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      background:rgba(7,11,16,.88);
+      backdrop-filter:blur(12px);
+      position:sticky;
+      top:0;
+      z-index:20;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:900;
+      letter-spacing:.8px;
+    }
+
+    .brand-icon{
+      width:38px;
+      height:38px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      border:1px solid rgba(216,168,78,.5);
+      background:#141c26;
+    }
+
+    .case-id{
+      color:var(--gold);
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .stats{
+      display:flex;
+      gap:12px;
+    }
+
+    .stat{
+      padding:8px 13px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:10px;
+      background:#101720;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    .stat strong{color:white}
+
+    /* SCREENS */
+    .screen{
+      width:min(1180px, calc(100% - 32px));
+      margin:auto;
+      padding:45px 0 60px;
+      animation:fade .45s ease;
+    }
+
+    @keyframes fade{
+      from{opacity:0; transform:translateY(8px)}
+      to{opacity:1; transform:none}
+    }
+
+    .eyebrow{
+      color:var(--gold);
+      text-transform:uppercase;
+      letter-spacing:3px;
+      font-size:12px;
+      font-weight:900;
+      margin-bottom:12px;
+    }
+
+    h1{
+      font-size:clamp(38px, 6vw, 74px);
+      line-height:.95;
+      margin:0;
+      letter-spacing:-3px;
+    }
+
+    h2{
+      font-size:clamp(28px,4vw,46px);
+      margin:0 0 12px;
+      letter-spacing:-1.5px;
+    }
+
+    p{
+      line-height:1.65;
+      color:#c0cad5;
+    }
+
+    /* HERO */
+    .hero{
+      min-height:calc(100vh - 140px);
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      align-items:center;
+      gap:55px;
+    }
+
+    .hero h1 span{
+      color:var(--gold);
+    }
+
+    .hero-copy{
+      max-width:680px;
+    }
+
+    .hero-copy .lead{
+      font-size:19px;
+      max-width:600px;
+    }
+
+    .big-money{
+      color:white;
+      font-size:30px;
+      font-weight:900;
+    }
+
+    .primary{
+      margin-top:18px;
+      padding:16px 25px;
+      background:var(--gold);
+      color:#16120b;
+      border-radius:9px;
+      font-weight:900;
+      letter-spacing:.4px;
+      box-shadow:0 8px 30px rgba(216,168,78,.2);
+      transition:.2s;
+    }
+
+    .primary:hover{
+      transform:translateY(-2px);
+      filter:brightness(1.07);
+    }
+
+    .secondary{
+      padding:13px 18px;
+      background:#1b2633;
+      color:white;
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:9px;
+      font-weight:800;
+    }
+
+    .case-folder{
+      position:relative;
+      background:var(--paper);
+      color:var(--ink);
+      min-height:440px;
+      border-radius:4px 12px 12px 4px;
+      padding:38px;
+      transform:rotate(2deg);
+      box-shadow:0 30px 80px rgba(0,0,0,.45);
+    }
+
+    .case-folder:before{
+      content:"HỒ SƠ MẬT";
+      position:absolute;
+      top:22px;
+      right:24px;
+      border:4px solid #9d3e3e;
+      color:#9d3e3e;
+      font-weight:1000;
+      padding:7px 11px;
+      transform:rotate(9deg);
+      opacity:.75;
+    }
+
+    .folder-tab{
+      position:absolute;
+      top:-24px;
+      left:0;
+      width:170px;
+      height:35px;
+      background:var(--paper);
+      border-radius:8px 8px 0 0;
+    }
+
+    .case-folder h3{
+      font-family:Georgia,serif;
+      font-size:30px;
+      margin-top:55px;
+    }
+
+    .folder-line{
+      border-bottom:1px solid rgba(0,0,0,.25);
+      padding:12px 0;
+      font-family:"Courier New",monospace;
+    }
+
+    .stamp{
+      margin-top:30px;
+      font-size:48px;
+      text-align:center;
+    }
+
+    /* BRIEF */
+    .brief-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:24px;
+      margin-top:30px;
+    }
+
+    .card{
+      background:linear-gradient(145deg,#141d28,#101720);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:15px;
+      padding:25px;
+    }
+
+    .card h3{margin-top:0}
+
+    .mission{
+      border-left:4px solid var(--gold);
+    }
+
+    .money{
+      font-size:42px;
+      font-weight:1000;
+      color:var(--gold);
+      margin:8px 0;
+    }
+
+    /* EVIDENCE */
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:20px;
+      margin-bottom:25px;
+    }
+
+    .progress{
+      width:240px;
+    }
+
+    .progress-info{
+      display:flex;
+      justify-content:space-between;
+      font-size:12px;
+      color:var(--muted);
+      margin-bottom:7px;
+    }
+
+    .bar{
+      height:7px;
+      background:#222c37;
+      border-radius:20px;
+      overflow:hidden;
+    }
+
+    .bar > div{
+      height:100%;
+      width:0;
+      background:var(--gold);
+      transition:.4s;
+    }
+
+    .evidence-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+    }
+
+    .evidence{
+      min-height:180px;
+      text-align:left;
+      padding:21px;
+      border-radius:14px;
+      background:#121b25;
+      color:white;
+      border:1px solid rgba(255,255,255,.08);
+      transition:.22s;
+      position:relative;
+    }
+
+    .evidence:hover{
+      transform:translateY(-4px);
+      border-color:rgba(216,168,78,.55);
+    }
+
+    .evidence.opened{
+      border-color:rgba(76,175,121,.55);
+    }
+
+    .evidence.opened:after{
+      content:"ĐÃ KIỂM TRA ✓";
+      position:absolute;
+      top:13px;
+      right:13px;
+      font-size:9px;
+      font-weight:900;
+      color:var(--green);
+      letter-spacing:1px;
+    }
+
+    .evidence-icon{
+      font-size:32px;
+      margin-bottom:20px;
+    }
+
+    .evidence-number{
+      font-size:11px;
+      color:var(--gold);
+      letter-spacing:1.5px;
+      font-weight:900;
+    }
+
+    .evidence h3{
+      margin:5px 0;
+      font-size:20px;
+    }
+
+    .evidence p{
+      font-size:13px;
+      margin:0;
+      color:#8794a3;
+    }
+
+    .continue-wrap{
+      margin-top:25px;
+      text-align:right;
+    }
+
+    /* MODAL */
+    .modal-bg{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.72);
+      backdrop-filter:blur(7px);
+      display:grid;
+      place-items:center;
+      padding:20px;
+      z-index:100;
+    }
+
+    .modal{
+      width:min(650px,100%);
+      max-height:85vh;
+      overflow:auto;
+      background:var(--paper);
+      color:var(--ink);
+      border-radius:7px;
+      padding:34px;
+      box-shadow:0 30px 100px black;
+      animation:pop .25s ease;
+    }
+
+    @keyframes pop{
+      from{transform:scale(.95);opacity:0}
+      to{transform:none;opacity:1}
+    }
+
+    .modal p{color:#443e34}
+
+    .modal-label{
+      color:#8d2f2f;
+      font-size:11px;
+      letter-spacing:2px;
+      font-weight:1000;
+    }
+
+    .document{
+      margin:20px 0;
+      padding:20px;
+      background:rgba(255,255,255,.35);
+      border:1px dashed rgba(0,0,0,.35);
+      font-family:"Courier New",monospace;
+      line-height:1.7;
+    }
+
+    .close{
+      width:100%;
+      padding:13px;
+      background:#24201a;
+      color:white;
+      font-weight:900;
+      border-radius:6px;
+    }
+
+    /* BOARD */
+    .board{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:15px;
+      margin:25px 0;
+    }
+
+    .board-item{
+      background:#121b25;
+      padding:18px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .board-item small{color:var(--muted)}
+    .board-item strong{
+      display:block;
+      margin-top:5px;
+      font-size:22px;
+    }
+
+    .formula{
+      background:#0d141d;
+      border:1px solid rgba(216,168,78,.3);
+      padding:22px;
+      border-radius:12px;
+      text-align:center;
+      font-size:20px;
+      margin:20px 0;
+    }
+
+    /* VOTE */
+    .vote-options{
+      display:grid;
+      gap:13px;
+      margin:30px 0 20px;
+    }
+
+    .vote{
+      padding:20px;
+      display:flex;
+      align-items:center;
+      gap:16px;
+      text-align:left;
+      border-radius:13px;
+      background:#121b25;
+      color:white;
+      border:1px solid rgba(255,255,255,.09);
+      transition:.2s;
+    }
+
+    .vote:hover{
+      border-color:var(--gold);
+      transform:translateX(4px);
+    }
+
+    .vote.selected{
+      border-color:var(--gold);
+      background:#211d15;
+    }
+
+    .letter{
+      flex:0 0 42px;
+      height:42px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      background:#222e3b;
+      font-weight:1000;
+      color:var(--gold);
+    }
+
+    textarea{
+      width:100%;
+      min-height:100px;
+      resize:vertical;
+      border-radius:12px;
+      padding:15px;
+      color:white;
+      background:#0e151e;
+      border:1px solid rgba(255,255,255,.1);
+      outline:none;
+    }
+
+    textarea:focus{border-color:var(--gold)}
+
+    /* RESULT */
+    .result-box{
+      max-width:850px;
+      margin:0 auto;
+      text-align:center;
+    }
+
+    .result-icon{
+      font-size:70px;
+      margin-bottom:10px;
+    }
+
+    .verdict{
+      margin:28px 0;
+      text-align:left;
+      padding:28px;
+      border:1px solid rgba(76,175,121,.4);
+      border-radius:15px;
+      background:rgba(76,175,121,.07);
+    }
+
+    .verdict h3{
+      color:#75d49d;
+      font-size:25px;
+      margin-top:0;
+    }
+
+    .explain-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:13px;
+      text-align:left;
+    }
+
+    .explain{
+      padding:18px;
+      background:#121b25;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .explain.correct{
+      border-color:var(--green);
+    }
+
+    .explain h4{margin:0 0 7px}
+    .explain p{font-size:13px;margin:0}
+
+    .score-big{
+      color:var(--gold);
+      font-size:64px;
+      font-weight:1000;
+      line-height:1;
+    }
+
+    .footer-note{
+      text-align:center;
+      color:#647181;
+      font-size:12px;
+      padding:20px;
+    }
+
+    @media(max-width:800px){
+      .hero,
+      .brief-grid{
+        grid-template-columns:1fr;
+      }
+
+      .case-folder{
+        margin-top:30px;
+      }
+
+      .evidence-grid,
+      .explain-grid{
+        grid-template-columns:1fr;
+      }
+
+      .board{
+        grid-template-columns:1fr;
+      }
+
+      .section-head{
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .progress{width:100%}
+      .stats{display:none}
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-icon">🕵️</div>
+      <div>
+        THÁM TỬ KINH TẾ
+        <div class="case-id">CASE #070M</div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        Chứng cứ:
+        <strong id="evidenceCount">0/6</strong>
+      </div>
+      <div class="stat">
+        Điểm:
+        <strong id="scoreTop">0</strong>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- SCREEN 1 -->
+  <main id="home" class="screen">
+    <div class="hero">
+
+      <div class="hero-copy">
+        <div class="eyebrow">Hồ sơ mật · Vụ án kinh tế</div>
+
+        <h1>
+          HỒ SƠ<br>
+          <span>70 TRIỆU</span>
+        </h1>
+
+        <p class="lead">
+          Cuối tháng, Công ty Nova báo cáo
+          <span class="big-money">70.000.000₫ lợi nhuận.</span>
+        </p>
+
+        <p>
+          Nhưng khoản lợi nhuận ấy thực sự đến từ đâu?
+          Nhiệm vụ của bạn là kiểm tra hồ sơ tài chính,
+          quá trình lao động và dữ liệu thị trường để tìm câu trả lời.
+        </p>
+
+        <button class="primary" onclick="showScreen('brief')">
+          MỞ HỒ SƠ ĐIỀU TRA →
+        </button>
+      </div>
+
+      <div class="case-folder">
+        <div class="folder-tab"></div>
+
+        <h3>CASE #070M</h3>
+
+        <div class="folder-line">
+          Đối tượng: CÔNG TY NOVA
+        </div>
+
+        <div class="folder-line">
+          Khoản tiền cần điều tra: 70.000.000 VNĐ
+        </div>
+
+        <div class="folder-line">
+          Phân loại: LỢI NHUẬN
+        </div>
+
+        <div class="folder-line">
+          Tình trạng: CHƯA XÁC ĐỊNH NGUỒN GỐC
+        </div>
+
+        <div class="stamp">🔍</div>
+      </div>
+
+    </div>
+  </main>
+
+
+  <!-- SCREEN 2 -->
+  <main id="brief" class="screen hidden">
+
+    <div class="eyebrow">Bước 01 · Tiếp nhận vụ án</div>
+    <h2>Nhiệm vụ của thám tử</h2>
+
+    <p>
+      Công ty Nova sản xuất một loại sản phẩm tiêu dùng.
+      Báo cáo cuối tháng cho thấy doanh nghiệp thu được khoản lợi nhuận:
+    </p>
+
+    <div class="brief-grid">
+
+      <div class="card mission">
+        <h3>💰 Khoản tiền bí ẩn</h3>
+        <div class="money">70.000.000₫</div>
+        <p>
+          Ban điều tra muốn biết bản chất kinh tế của khoản tiền này.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>🎯 Nhiệm vụ</h3>
+        <p>
+          Thu thập đủ <b>6 chứng cứ</b>, phân tích chúng và trả lời:
+        </p>
+
+        <p style="color:white;font-weight:800">
+          “Có thể đồng nhất lợi nhuận với giá trị thặng dư hay không?”
+        </p>
+      </div>
+
+    </div>
+
+    <button class="primary" onclick="showScreen('investigation')">
+      ĐẾN PHÒNG CHỨNG CỨ →
+    </button>
+
+  </main>
+
+
+  <!-- SCREEN 3 -->
+  <main id="investigation" class="screen hidden">
+
+    <div class="section-head">
+
+      <div>
+        <div class="eyebrow">Bước 02 · Thu thập chứng cứ</div>
+        <h2>Phòng chứng cứ</h2>
+        <p>Kiểm tra toàn bộ 6 hồ sơ trước khi đưa ra kết luận.</p>
+      </div>
+
+      <div class="progress">
+        <div class="progress-info">
+          <span>TIẾN ĐỘ ĐIỀU TRA</span>
+          <span id="progressText">0%</span>
+        </div>
+
+        <div class="bar">
+          <div id="progressBar"></div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="evidence-grid">
+
+      <button class="evidence" data-id="revenue" onclick="openEvidence('revenue',this)">
+        <div class="evidence-icon">🧾</div>
+        <div class="evidence-number">CHỨNG CỨ #01</div>
+        <h3>Doanh thu</h3>
+        <p>Kiểm tra số tiền doanh nghiệp thu được.</p>
+      </button>
+
+      <button class="evidence" data-id="material" onclick="openEvidence('material',this)">
+        <div class="evidence-icon">📦</div>
+        <div class="evidence-number">CHỨNG CỨ #02</div>
+        <h3>Nguyên liệu</h3>
+        <p>Chi phí đầu vào của quá trình sản xuất.</p>
+      </button>
+
+      <button class="evidence" data-id="machine" onclick="openEvidence('machine',this)">
+        <div class="evidence-icon">⚙️</div>
+        <div class="evidence-number">CHỨNG CỨ #03</div>
+        <h3>Máy móc</h3>
+        <p>Giá trị máy móc chuyển vào sản phẩm.</p>
+      </button>
+
+      <button class="evidence" data-id="salary" onclick="openEvidence('salary',this)">
+        <div class="evidence-icon">💵</div>
+        <div class="evidence-number">CHỨNG CỨ #04</div>
+        <h3>Tiền lương</h3>
+        <p>Khoản doanh nghiệp trả cho người lao động.</p>
+      </button>
+
+      <button class="evidence" data-id="labor" onclick="openEvidence('labor',this)">
+        <div class="evidence-icon">⏱️</div>
+        <div class="evidence-number">CHỨNG CỨ #05</div>
+        <h3>Thời gian lao động</h3>
+        <p>Một manh mối đặc biệt quan trọng.</p>
+      </button>
+
+      <button class="evidence" data-id="market" onclick="openEvidence('market',this)">
+        <div class="evidence-icon">📈</div>
+        <div class="evidence-number">CHỨNG CỨ #06</div>
+        <h3>Giá thị trường</h3>
+        <p>Điều gì xảy ra khi hàng hóa bước ra thị trường?</p>
+      </button>
+
+    </div>
+
+    <div class="continue-wrap">
+      <button id="analysisBtn" class="primary hidden"
+              onclick="showScreen('analysis')">
+        PHÂN TÍCH CHỨNG CỨ →
+      </button>
+    </div>
+
+  </main>
+
+
+  <!-- SCREEN 4 -->
+  <main id="analysis" class="screen hidden">
+
+    <div class="eyebrow">Bước 03 · Bảng suy luận</div>
+    <h2>Ghép các manh mối</h2>
+
+    <p>
+      Đây là những gì bạn đã tìm thấy trong hồ sơ của Nova.
+    </p>
+
+    <div class="board">
+
+      <div class="board-item">
+        <small>DOANH THU</small>
+        <strong>300 triệu</strong>
+      </div>
+
+      <div class="board-item">
+        <small>NGUYÊN LIỆU</small>
+        <strong>100 triệu</strong>
+      </div>
+
+      <div class="board-item">
+        <small>HAO MÒN MÁY MÓC</small>
+        <strong>50 triệu</strong>
+      </div>
+
+      <div class="board-item">
+        <small>TIỀN LƯƠNG</small>
+        <strong>80 triệu</strong>
+      </div>
+
+    </div>
+
+    <div class="formula">
+      300 triệu − (100 + 50 + 80) triệu
+      = <b style="color:var(--gold)">70 triệu đồng</b>
+    </div>
+
+    <div class="card">
+      <h3>⚠️ Nhưng khoan...</h3>
+
+      <p>
+        Phép tính trên cho chúng ta biết <b>lợi nhuận kế toán xuất hiện như thế nào</b>.
+        Nhưng nó đã giải thích được <b>nguồn gốc của phần giá trị tăng thêm</b>
+        trong quá trình sản xuất hay chưa?
+      </p>
+
+      <p>
+        Đây chính là điểm bạn cần giải quyết trước khi phá án.
+      </p>
+    </div>
+
+    <button class="primary" onclick="showScreen('vote')">
+      TÔI ĐÃ CÓ KẾT LUẬN →
+    </button>
+
+  </main>
+
+
+  <!-- SCREEN 5 -->
+  <main id="vote" class="screen hidden">
+
+    <div class="eyebrow">Bước 04 · Đưa ra phán đoán</div>
+    <h2>70 triệu đồng đến từ đâu?</h2>
+
+    <p>
+      Dựa trên toàn bộ chứng cứ, hãy chọn kết luận mà bạn cho là chính xác nhất.
+    </p>
+
+    <div class="vote-options">
+
+      <button class="vote" onclick="selectVote('A',this)">
+        <div class="letter">A</div>
+        <div>
+          <b>Lợi nhuận = toàn bộ giá trị thặng dư.</b>
+          <div style="color:#8996a4;margin-top:4px">
+            Hai khái niệm hoàn toàn giống nhau.
+          </div>
+        </div>
+      </button>
+
+      <button class="vote" onclick="selectVote('B',this)">
+        <div class="letter">B</div>
+        <div>
+          <b>Lợi nhuận là hình thức biểu hiện của giá trị thặng dư.</b>
+          <div style="color:#8996a4;margin-top:4px">
+            Khi xuất hiện trên bề mặt nền kinh tế thị trường,
+            giá trị thặng dư biểu hiện thành lợi nhuận.
+          </div>
+        </div>
+      </button>
+
+      <button class="vote" onclick="selectVote('C',this)">
+        <div class="letter">C</div>
+        <div>
+          <b>Lợi nhuận chỉ đơn giản là doanh thu trừ chi phí.</b>
+          <div style="color:#8996a4;margin-top:4px">
+            Không cần phân tích thêm nguồn gốc kinh tế.
+          </div>
+        </div>
+      </button>
+
+    </div>
+
+    <p><b>Lập luận của thám tử:</b></p>
+
+    <textarea id="reason"
+      placeholder="Viết ngắn gọn lý do bạn chọn đáp án này..."></textarea>
+
+    <button id="submitVote" class="primary"
+            onclick="submitVerdict()" disabled>
+      KHÓA PHÁN ĐOÁN 🔒
+    </button>
+
+  </main>
+
+
+  <!-- SCREEN 6 -->
+  <main id="result" class="screen hidden">
+
+    <div class="result-box">
+
+      <div class="result-icon" id="resultIcon">🕵️</div>
+
+      <div class="eyebrow">Hồ sơ đã được giải mã</div>
+
+      <h2 id="resultTitle">KẾT LUẬN VỤ ÁN</h2>
+
+      <p>
+        Trong cách tiếp cận của kinh tế chính trị Mác – Lênin,
+        điểm quan trọng là phân biệt giữa
+        <b>bản chất</b> và <b>hình thức biểu hiện</b>.
+      </p>
+
+      <div class="verdict">
+
+        <h3>✓ Kết luận: B</h3>
+
+        <p>
+          <b>
+            Lợi nhuận là hình thức biểu hiện đã chuyển hóa
+            của giá trị thặng dư.
+          </b>
+        </p>
+
+        <p>
+          Giá trị thặng dư được xem xét trong mối quan hệ với
+          tư bản khả biến, còn khi phần giá trị tăng thêm được
+          đặt trong quan hệ với toàn bộ tư bản ứng trước,
+          nó biểu hiện thành lợi nhuận.
+        </p>
+
+      </div>
+
+
+      <div class="explain-grid">
+
+        <div class="explain">
+          <h4>❌ A. Chưa chính xác</h4>
+          <p>
+            Không nên đồng nhất hai khái niệm một cách máy móc.
+            Chúng liên hệ về nguồn gốc nhưng khác nhau về
+            hình thức biểu hiện.
+          </p>
+        </div>
+
+        <div class="explain correct">
+          <h4>✓ B. Phù hợp nhất</h4>
+          <p>
+            Theo lý luận kinh tế chính trị Mác – Lênin,
+            lợi nhuận được xem là hình thức chuyển hóa
+            của giá trị thặng dư.
+          </p>
+        </div>
+
+        <div class="explain">
+          <h4>⚠️ C. Chưa đủ</h4>
+          <p>
+            Doanh thu trừ chi phí có thể giúp xác định lợi nhuận
+            về mặt kế toán, nhưng chưa giải thích bản chất
+            kinh tế mà câu hỏi lý luận đang yêu cầu.
+          </p>
+        </div>
+
+      </div>
+
+      <div style="margin-top:38px">
+        <div style="color:#8d99a6;font-size:12px;font-weight:900">
+          ĐIỂM ĐIỀU TRA
+        </div>
+
+        <div class="score-big" id="finalScore">0</div>
+
+        <p id="rank">THÁM TỬ TẬP SỰ</p>
+      </div>
+
+      <button class="primary" onclick="restartGame()">
+        ↻ CHƠI LẠI
+      </button>
+
+    </div>
+
+  </main>
+
+
+  <div class="footer-note">
+    THÁM TỬ KINH TẾ · CASE #070M · Trò chơi phục vụ học tập
+  </div>
+
+</div>
+
+
+<!-- EVIDENCE MODAL -->
+<div id="modalBg" class="modal-bg hidden" onclick="outsideClose(event)">
+  <div class="modal">
+
+    <div class="modal-label">TÀI LIỆU MẬT · CHỨNG CỨ</div>
+
+    <h2 id="modalTitle" style="font-size:32px;margin-top:8px"></h2>
+
+    <div id="modalDocument" class="document"></div>
+
+    <p id="modalExplanation"></p>
+
+    <button class="close" onclick="closeModal()">
+      ĐÃ GHI NHẬN CHỨNG CỨ ✓
+    </button>
+
+  </div>
+</div>
+
+
+<script>
+  let openedEvidence = new Set();
+  let score = 0;
+  let selectedVote = null;
+
+  const evidenceData = {
+
+    revenue:{
+      title:"🧾 Báo cáo doanh thu",
+      document:`
+        SẢN PHẨM BÁN RA: 1.000<br>
+        GIÁ BÁN BÌNH QUÂN: 300.000₫<br>
+        ─────────────────────<br>
+        TỔNG DOANH THU: <b>300.000.000₫</b>
+      `,
+      explanation:
+        "Doanh thu cho biết tổng số tiền thu được từ việc bán hàng. Tuy nhiên, doanh thu không đồng nghĩa với lợi nhuận."
+    },
+
+    material:{
+      title:"📦 Phiếu nguyên vật liệu",
+      document:`
+        Nguyên liệu A: 55.000.000₫<br>
+        Nguyên liệu B: 30.000.000₫<br>
+        Vật liệu phụ: 15.000.000₫<br>
+        ─────────────────────<br>
+        TỔNG: <b>100.000.000₫</b>
+      `,
+      explanation:
+        "Nguyên vật liệu là một bộ phận chi phí sản xuất. Giá trị của chúng được chuyển vào sản phẩm."
+    },
+
+    machine:{
+      title:"⚙️ Hồ sơ máy móc",
+      document:`
+        Giá trị máy móc sử dụng trong kỳ<br>
+        Phần hao mòn tính vào sản phẩm:<br><br>
+        <b>50.000.000₫</b>
+      `,
+      explanation:
+        "Máy móc tham gia sản xuất nhưng chỉ chuyển dần giá trị của mình vào sản phẩm thông qua hao mòn."
+    },
+
+    salary:{
+      title:"💵 Bảng tiền lương",
+      document:`
+        SỐ LAO ĐỘNG: 20 người<br>
+        QUỸ TIỀN LƯƠNG TRONG KỲ:<br><br>
+        <b>80.000.000₫</b>
+      `,
+      explanation:
+        "Đây là khoản doanh nghiệp chi trả để sử dụng sức lao động trong quá trình sản xuất."
+    },
+
+    labor:{
+      title:"⏱️ Nhật ký lao động",
+      document:`
+        THỜI GIAN LÀM VIỆC: 8 giờ/ngày<br><br>
+        Trong quá trình lao động, người lao động
+        tạo ra giá trị mới cho sản phẩm.<br><br>
+        <b>MANH MỐI:</b> Giá trị mới tạo ra không nhất thiết
+        chỉ tương ứng với tiền lương được trả.
+      `,
+      explanation:
+        "Theo lý luận giá trị thặng dư, sức lao động có khả năng tạo ra lượng giá trị mới lớn hơn giá trị sức lao động của chính nó."
+    },
+
+    market:{
+      title:"📈 Báo cáo thị trường",
+      document:`
+        GIÁ BÁN BÌNH QUÂN: 300.000₫ / sản phẩm<br>
+        SỐ LƯỢNG BÁN: 1.000 sản phẩm<br><br>
+        THỊ TRƯỜNG: ỔN ĐỊNH
+      `,
+      explanation:
+        "Khi hàng hóa được bán trên thị trường, phần giá trị thặng dư có thể biểu hiện ra dưới hình thức lợi nhuận của doanh nghiệp."
+    }
+  };
+
+
+  function showScreen(id){
+    document.querySelectorAll(".screen").forEach(screen=>{
+      screen.classList.add("hidden");
+    });
+
+    document.getElementById(id).classList.remove("hidden");
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+
+  function openEvidence(id, element){
+
+    const data = evidenceData[id];
+
+    document.getElementById("modalTitle").innerHTML = data.title;
+    document.getElementById("modalDocument").innerHTML = data.document;
+    document.getElementById("modalExplanation").innerHTML = data.explanation;
+
+    document.getElementById("modalBg").classList.remove("hidden");
+
+    if(!openedEvidence.has(id)){
+      openedEvidence.add(id);
+      element.classList.add("opened");
+
+      score += 10;
+
+      updateStats();
+    }
+  }
+
+
+  function updateStats(){
+
+    const count = openedEvidence.size;
+
+    document.getElementById("evidenceCount").textContent = `${count}/6`;
+    document.getElementById("scoreTop").textContent = score;
+
+    const percent = Math.round((count / 6) * 100);
+
+    document.getElementById("progressText").textContent = `${percent}%`;
+    document.getElementById("progressBar").style.width = `${percent}%`;
+
+    if(count === 6){
+      document.getElementById("analysisBtn").classList.remove("hidden");
+    }
+  }
+
+
+  function closeModal(){
+    document.getElementById("modalBg").classList.add("hidden");
+  }
+
+
+  function outsideClose(e){
+    if(e.target.id === "modalBg"){
+      closeModal();
+    }
+  }
+
+
+  function selectVote(answer, element){
+
+    selectedVote = answer;
+
+    document.querySelectorAll(".vote").forEach(btn=>{
+      btn.classList.remove("selected");
+    });
+
+    element.classList.add("selected");
+
+    document.getElementById("submitVote").disabled = false;
+  }
+
+
+  function submitVerdict(){
+
+    if(!selectedVote) return;
+
+    if(selectedVote === "B"){
+      score += 40;
+    }else{
+      score += 10;
+    }
+
+    document.getElementById("scoreTop").textContent = score;
+    document.getElementById("finalScore").textContent = score;
+
+    const icon = document.getElementById("resultIcon");
+    const title = document.getElementById("resultTitle");
+    const rank = document.getElementById("rank");
+
+    if(selectedVote === "B"){
+      icon.textContent = "🏆";
+      title.textContent = "PHÁ ÁN THÀNH CÔNG";
+
+      if(score >= 100){
+        rank.textContent = "SHERLOCK KINH TẾ 🕵️";
+      }else{
+        rank.textContent = "CHUYÊN VIÊN PHÂN TÍCH";
+      }
+
+    }else{
+      icon.textContent = "🔍";
+      title.textContent = "VỤ ÁN ĐÃ ĐƯỢC GIẢI MÃ";
+      rank.textContent = "THÁM TỬ TẬP SỰ";
+    }
+
+    showScreen("result");
+  }
+
+
+  function restartGame(){
+
+    openedEvidence = new Set();
+    score = 0;
+    selectedVote = null;
+
+    document.querySelectorAll(".evidence").forEach(item=>{
+      item.classList.remove("opened");
+    });
+
+    document.querySelectorAll(".vote").forEach(item=>{
+      item.classList.remove("selected");
+    });
+
+    document.getElementById("analysisBtn").classList.add("hidden");
+    document.getElementById("submitVote").disabled = true;
+    document.getElementById("reason").value = "";
+
+    updateStats();
+    showScreen("home");
+  }
+</script>
+
+</body>
+</html>
